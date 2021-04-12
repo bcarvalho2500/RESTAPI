@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const connectionString = "mongodb+srv://admin:mongodbpassword@cluster0.kwtze.mongodb.net/Cluster0?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://admin:pass123@cluster0.ssfeh.mongodb.net/Cluster0?retryWrites=true&w=majority"
 mongoose.connect(connectionString,
     {
         useNewUrlParser : true,
@@ -22,25 +22,19 @@ mongoose.connect(connectionString,
 
 const mySchema = new mongoose.Schema({
 
-    id : Number,
-    name : String,
-    access : String,
-    house_rules : String,
-    host_since : String,
-    host_location : String,
-    neighbourhood : String,
-    zipcode : Number,
-    bed_type : String,
-    price : String
+    "Country (or dependency)" : String,
+    "Population (2020)" : Number,
+    "Yearly Change" : String,
+    "Net Change" : Number
 })
 
-const model = mongoose.model("BostonAirBnB", mySchema, "BostonAirBnB")
+const model = mongoose.model("listCountries", mySchema, "listCountries")
 app.get("/",(req,res)=>{
     
-    const zipcodeQ = req.query["zipcode"]
-    var zipcode = parseInt(zipcodeQ, 10)
-    if(zipcode !== undefined){
-        model.find({"zipcode": zipcode},(err,data)=>{
+    const country= req.query["country"]
+    
+    if(country !== undefined){
+        model.find({"Country (or dependency)": country},(err,data)=>{
             if (err) {
                 console.log("Error getting data")
             }else{
@@ -48,7 +42,7 @@ app.get("/",(req,res)=>{
             }
         })
     }else{
-        res.status(400).json({"Error":"Error the code should be zipcode"})
+        res.status(400).json({"Error":"Error the key should be country"})
     }
 })
 app.listen(port, ()=>{
