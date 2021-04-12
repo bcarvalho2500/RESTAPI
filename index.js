@@ -22,13 +22,23 @@ mongoose.connect(connectionString,
 
 const mySchema = new mongoose.Schema({
 
-    zipcode : Number
+    id : Number,
+    name : String,
+    access : String,
+    house_rules : String,
+    host_since : String,
+    host_location : String,
+    neighbourhood : String,
+    zipcode : Number,
+    bed_type : String,
+    price : String
 })
 
 const model = mongoose.model("BostonAirBnB", mySchema, "BostonAirBnB")
 app.get("/",(req,res)=>{
     
-    const zipcode = req.query['zipcode']
+    const zipcodeQ = req.query["zipcode"]
+    var zipcode = parseInt(zipcodeQ, 10)
     if(zipcode !== undefined){
         model.find({"zipcode": zipcode},(err,data)=>{
             if (err) {
