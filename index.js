@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const connectionString = "mongodb+srv://admin:pass123@cluster0.ssfeh.mongodb.net/Cluster0?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://admin:pass123@cluster0.ssfeh.mongodb.net/Countries?retryWrites=true&w=majority"
 mongoose.connect(connectionString,
     {
         useNewUrlParser : true,
